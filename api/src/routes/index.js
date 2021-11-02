@@ -28,6 +28,7 @@ const getApiInfo = async() => {
     const GameCount = await apiurl.data;
     const videogames = GameCount.results.map(game => {
         return {
+            id: game.id,
             name: game.name,
             description: game.description,
             image: game.background_image,
@@ -68,6 +69,7 @@ router.get('/videogames' , async (req, res) => {
    const Allgames = await axios.get(`https://api.rawg.io/api/games?search=${search}&key=${API_KEY}&page_size=${PAGE_SIZE}`);
     const videogamesSearch = Allgames.data.results.map(game => {
           return {
+                id: game.id,
                 name: game.name,
                 description: game.description,
                 image: game.background_image,
@@ -144,7 +146,19 @@ router.get('/videogames' , async (req, res) => {
                     res.status(200).send("Videogame created successfully.");
                     });
                 
-                
+                    router.get('/videogames/:id' , async (req, res)=>{
+                        const id = req.params.id;
+                        const VideogameTotal= await getAllGames();
+                        if(id){
+                            let videogameId=await VideogameTotal.filter(game => game.id == id);
+                            videogameId.length?
+                            res.status(200).json(videogameId):
+                            res.status(404).send('No se encontraron resultados');
+
+                            
+                        }
+                    });
+                                             
                         
            
            
