@@ -7,7 +7,7 @@ const {Videogames,Genres} = require('../db.js');
 
 
 const router = Router();
-const {API_KEY} = process.env;
+const {API_KEY,PAGE_SIZE} = process.env;
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -21,10 +21,10 @@ const {API_KEY} = process.env;
 }); */
 
 
-////TRAE TODOS LOS JUEGOS DE LA API 
+////TRAE TODOS LOS JUEGOS DE LA API SIN QUERIES
 const getApiInfo = async() => {
-    const page_size = 15;
-    const apiurl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=${page_size}`);
+    
+    const apiurl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=${PAGE_SIZE}`);
     const GameCount = await apiurl.data;
     const videogames = GameCount.results.map(game => {
         return {
@@ -64,15 +64,26 @@ const getAllGames = async() => {
 //RUTAS GET /videogames trae todos los juegos de la api y la base de datos
 router.get('/videogames' , async (req, res) => {
    const search = req.query.search;
-   const Allgames = await getAllGames();
-    if(search){
-        const gamesName = await Allgames.filter(game => game.name.toLowerCase().includes(search.toLowerCase()));
+    const videogames = await getAllGames();
+   const Allgames = await axios.get(`https://api.rawg.io/api/games?search=${search}&key=${API_KEY}&page_size=${PAGE_SIZE}`);
+    const videogamesSearch = Allgames.data.results.map(game => {
+          return {
+                name: game.name,
+                description: game.description,
+                image: game.background_image,
+                rating: game.rating,
+                platforms: game.platforms.map(platforms => platforms),
+                genres: game.genres.map(genre => genre.name)
+          }
+     });
+   if(search){
+        const gamesName = await videogamesSearch.filter(game => game.name.toLowerCase().includes(search.toLowerCase()));
         gamesName.length?
         res.status(200).send(gamesName):
         res.status(404).send('No se encontraron resultados');
                }
     else{
-        res.status(200).send(Allgames);
+        res.status(200).send(videogames);
     
         }
 });
