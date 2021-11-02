@@ -95,49 +95,29 @@ router.get('/videogames' , async (req, res) => {
     
     
     //RUTA GET /genres TRAE LOS DATOS DE GENEROS DE LA API Y LOS GUARDA EN LA BASE DE DATOS
-    /* router.get('/genres', async (req, res) => {
-        const genresApi = await axios.get(`https://api.rawg.io/api/genres?key=544bf6b2556f4547af91a9307a210ea6`);
-        const genres = genresApi.data.results.map(genre => {
-            genre = genres.name;  //Agrega el nombre del genero a la API)
-        }
-        );
-        const genresEach = genres.map(genre => {
-            for (let i = 0; i < genre.length; i++) {
-                return genre[i]}})
-                genresEach.forEach(genre => {
-                    genre.findorCreate({
-                        where :{name: genre}
-                    })
-                });
-                const getAllGames = await Genres.findAll();
-                res.send(getAllGames);
-                
-            }
-            
-            
-            
-            
-            );
-            */
-           /* if(search){
-               const apiurlSearch = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&search=${search}`);
-               const videogamesSearch = apiurlSearch.data.results.map(api => {
-                   return {
-                       id: api.id,
-                       name: api.name,
-                       released: api.released,
-                       background_image: api.background_image,
-                       rating: api.rating,
-                       platforms: api.platforms.map(platforms => platforms),
-                       genres: api.genres.map(genres => genres), 
-                       
-                            
+    router.get('/genres', async (req, res) => {
+        const genresApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
+        const genresArray = await genresApi.data.results.map(el => el.name);
+       const GenresEach = genresArray.map(genre => {
+           for(let i = 0; i < genre.length; i++)return genre})
+           console.log(GenresEach);
+           GenresEach.forEach( genre => {
+               Genres.findOrCreate({
+                   where: {
+                       name: genre
                    }
+
                })
-               res.send(videogamesSearch);
-           }else{
-               res.send(Allgames);
-               
-           } */
-           module.exports = router;
+              })
+              const AllGenres = await Genres.findAll();
+                res.status(200).send(AllGenres);
+           });
+            
+            
+            
+            
+            
+            
            
+           
+           module.exports = router;       
