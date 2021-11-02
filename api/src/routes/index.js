@@ -115,9 +115,37 @@ router.get('/videogames' , async (req, res) => {
             
             
             
-            
-            
-            
+            router.post('/videogames', async (req, res) => {
+                const { 
+                    name, 
+                    description,
+                    image,
+                    rating,
+                    platforms,
+                    genres, 
+                    released,
+                    createdInDb
+
+
+                } = req.body;
+                const videogameCreated = await Videogames.create({
+                    name, 
+                    description,
+                    image,
+                    rating,
+                    platforms,
+                    released,
+                    createdInDb
+                });
+                    const GenresDB = await Genres.findAll({
+                        where: {name: genres}
+                    });
+                    videogameCreated.addGenres(GenresDB);
+                    res.status(200).send("Videogame created successfully.");
+                    });
+                
+                
+                        
            
            
            module.exports = router;       
