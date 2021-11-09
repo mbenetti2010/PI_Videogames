@@ -23,8 +23,30 @@ const {API_KEY,PAGE_SIZE} = process.env;
 
 ////TRAE TODOS LOS JUEGOS DE LA API SIN QUERIES
 const getApiInfo = async() => {
-    
-    const apiurl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=${PAGE_SIZE}`);
+    const traerJuegosdeApi = 100;
+    const MaxJuegosporPagina = 20;
+    const totalPaginas = Math.ceil(traerJuegosdeApi/MaxJuegosporPagina);
+    const apiInfoRestricted = [];
+    for(let i = 1; i <= totalPaginas; i++){
+        const apiurl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${i}&page_size=${MaxJuegosporPagina}`);
+        const videogames = apiurl.data.results;
+        apiInfoRestricted.push(...videogames);
+    }
+    const infoFiltrada = apiInfoRestricted.map(game => {
+        return {
+            id: game.id,
+            name: game.name,
+            description: game.description,
+            image: game.background_image,
+            rating: game.rating,
+            platforms: game.platforms.map(platforms => platforms+' / '),
+            genres: game.genres.map(genre => genre.name+' / '),
+        }
+    });
+const videogames = infoFiltrada;
+   /*  return apiInfo;
+
+    const apiurl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${i}&page_size=${PAGE_SIZE}`);
     const GameCount = await apiurl.data;
     const videogames = GameCount.results.map(game => {
         return {
@@ -33,10 +55,10 @@ const getApiInfo = async() => {
             description: game.description,
             image: game.background_image,
             rating: game.rating,
-            platforms: game.platforms.map(platforms => platforms),
-            genres: game.genres.map(genre => genre.name)
+            platforms: game.platforms.map(platforms => platforms+' / '),
+            genres: game.genres.map(genre => genre.name+' / '),
         }
-    });
+    }); */
     return videogames;
 }
 
