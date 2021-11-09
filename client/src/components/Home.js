@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";  
 import {useEffect,useState } from 'react';         // useState, useEffect
 import { useDispatch, useSelector } from 'react-redux';     // useSelector  useDispatch     
-import { getAllGames } from "../actions"
+import { getAllGames,FilterGamesByGenre} from "../actions"
 import { Link } from "react-router-dom";
 import  Card from "./Card";
 import Paginado from './Paginado';
@@ -9,6 +9,7 @@ import Paginado from './Paginado';
 
 
 export default function Home() {
+
     const dispatch = useDispatch()
     const Allgames = useSelector ((state) => state.gamesST)  
     const [currentPage, setCurrentPage] = useState(1);
@@ -25,12 +26,15 @@ export default function Home() {
     
     useEffect(() => {
         dispatch(getAllGames())
-    },[]);      
+    },[dispatch]);      
     function hadleOnClick(e){       
 e.preventDefault()
 dispatch(getAllGames());        
     }      
-   
+   function handleOnClickGenre(e){
+        e.preventDefault()
+        dispatch(FilterGamesByGenre(e.target.value))
+    }
     
     return (
         <div>
@@ -49,6 +53,28 @@ dispatch(getAllGames());
                     <option value="alf">Alfabetico</option>
                     <option value="rat">Rating</option>
                 </select>
+                <select onChange={e =>handleOnClickGenre(e)}>
+                          <option value="allGenre">Todos</option>
+                          <option value="Action">Action</option>
+                          <option value="RPG">RPG</option>
+                          <option value="Indie">Indie</option>
+                          <option value="Adventure">Adventure</option>
+                          <option value="Shooter">Shooter</option>
+                          <option value="Casual">Casual</option>
+                          <option value="RPG">RPG</option>
+                          <option value="Strategy">Strategy</option>
+                          <option value="Simulation">Simulation</option>
+                          <option value="Puzzle">Puzzle</option>
+                          <option value="Platformer">Platformer</option>
+                          <option value="Racing">Racing</option>
+                          <option value="Massively Multiplayer">Massively Multiplayer</option>
+                          <option value="Sports">Sports</option>
+                          <option value="Fighting">Fighting</option>
+                          <option value="Family">Family</option>
+                          <option value="Board Games">Board Games</option>
+                          <option value="Educational">Educational</option>
+                          <option value="Card">Card</option>
+                        </select>                  
 
                 <Paginado  gamesPerPage={gamesPerPage} Allgames={Allgames.length} paginado={paginado}/>
               
@@ -58,7 +84,7 @@ dispatch(getAllGames());
 
                         <div >
                             <Link to={"/"+g.id}>
-                              <Card name={g.name} image={g.image} genre={g.genres}/>
+                              <Card name={g.name} image={g.image} genre={g.genres} key={g.id}/>
                               </Link>
                     </div>
                 );

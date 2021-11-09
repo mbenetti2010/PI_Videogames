@@ -9,3 +9,11 @@ export  function getAllGames() {
         })
     }
 }
+
+export function FilterGamesByGenre(payload) {
+  console.log(payload);
+  return { 
+      type: 'FILTER_GENRE',
+      payload
+  }
+}
