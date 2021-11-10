@@ -5,14 +5,16 @@ import { getAllGames,FilterGamesByGenre} from "../actions"
 import { Link } from "react-router-dom";
 import  Card from "./Card";
 import Paginado from './Paginado';
+import "../css/Home.css"
 
 
 
 export default function Home() {
 
     const dispatch = useDispatch()
-    const Allgames = useSelector ((state) => state.gamesST)  
-    const [currentPage, setCurrentPage] = useState(1);
+    const Allgames = useSelector ((state) => state.gamesALL)  
+    const [currentPage, setCurrentPage] = useState(1
+        );
    const [gamesPerPage, setGamesPerPage] = useState(15);
     const [indexOfLastGame, setIndexOfLastGame] = useState(gamesPerPage*currentPage);
     const [indexOfFirstGame, setIndexOfFirstGame] = useState(indexOfLastGame-gamesPerPage);

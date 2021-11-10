@@ -5,10 +5,10 @@ import { getAllGames } from '../actions';
 
 export default function LandingPage() {
     const dispatch = useDispatch()
-    const Allgames = useSelector ((state) => state.gamesST)  
+    
     useEffect(() => {
         dispatch(getAllGames())
-    },[]);  
+    },[]);   
     return (
         
         <div className="landing-page">
