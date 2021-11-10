@@ -14,14 +14,17 @@ const initialState = {
              // return state with games array set to action payload
              case 'FILTER_GENRE':  
               const getAllGames = state.gamesALL;
-                const gamesFiltred = state.gamesFILTRED;
+              const GenreFiltred = action.payload==="allGenre"? getAllGames : getAllGames.filter(game => {console.log(game.genres.includes(action.payload))});
+               
+              
+              
                 /* const GenreFiltred = action.payload==="allGenre"? getAllGames : getAllGames.map( genre =>  genre.genres);//da array con generos */
-                const GenreFiltred = action.payload==="allGenre"? getAllGames : gamesFiltred.filter( genre =>   genre.genres===action.payload);//da array con generos
                 console.log(action.payload);
           
                 console.log(GenreFiltred);
                 //genres: game.genres.map(genre => genre.name)
-                return {...state, gamesFILTRED : GenreFiltred}; 
+                return {...state, 
+                    gamesFILTRED : GenreFiltred}; 
             
 
 

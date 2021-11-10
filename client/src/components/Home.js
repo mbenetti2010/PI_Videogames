@@ -31,9 +31,11 @@ export default function Home() {
     },[dispatch]);      
     function hadleOnClick(e){       
 e.preventDefault()
+
+
 dispatch(getAllGames());        
     }      
-   function handleOnClickGenre(e){
+   function handleFilterGenre(e){
         e.preventDefault()
         dispatch(FilterGamesByGenre(e.target.value))
     }
@@ -55,7 +57,7 @@ dispatch(getAllGames());
                     <option value="alf">Alfabetico</option>
                     <option value="rat">Rating</option>
                 </select>
-                <select onChange={e =>handleOnClickGenre(e)}>
+                <select onChange={e =>handleFilterGenre(e)}>
                           <option value="allGenre">Todos</option>
                           <option value="Action">Action</option>
                           <option value="RPG">RPG</option>
