@@ -14,7 +14,8 @@ const initialState = {
              // return state with games array set to action payload
              case 'FILTER_GENRE':  
               const getAllGames = state.gamesALL;
-              const GenreFiltred = action.payload==="allGenre"? getAllGames : getAllGames.filter(game => {console.log(game.genres.includes(action.payload))});
+              const GenreFiltred = action.payload==="allGenre"? getAllGames : getAllGames.map(game => game.genres.includes(action.payload) ? game : null).filter(game => game !== null); // if action.payload is allGenre, return all games, else return games with action.payload genre included in genres array   return state with games array set to action payload       
+
                
               
               

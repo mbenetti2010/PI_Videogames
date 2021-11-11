@@ -1,0 +1,63 @@
+.card2 {
+    text-decoration: none;
+    display: inline-block;
+    flex-direction: column;
+    width: 300px;
+    height: 250px;
+    background: rgba(3, 3, 3, 0.877);
+    border: 3px solid black;
+    border-radius: 15px;
+    margin: 1.98em;
+}
+
+.card2:hover {
+    background-color: gray;
+    transition: 0.7s;
+}
+
+.name {
+    color: rgb(255, 251, 0);
+    text-decoration: none;
+}
+
+.align {
+    font-size: 15px;
+    align-items: center;
+}
+
+.list-item {
+    margin: 0;
+  
+    height: 30%;
+    width: 390px;
+    align-items: center;
+}
+
+.h32 {
+    font-size: 15px;
+    align-items: center;
+}
+
+.temperature {
+    display: flex;
+    background: rgb(167, 167, 228);
+    border-radius: 15px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn {
+    background: red;
+    border-radius: 10px;
+    width: 30px;
+    align-self: flex-end;
+}
+
+.btnwhite {
+    color: white;
+}
+
+.btn:hover {
+    background-color: gray;
+    border-radius: 10px;
+}

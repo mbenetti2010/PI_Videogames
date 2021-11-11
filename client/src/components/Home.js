@@ -86,7 +86,7 @@ dispatch(getAllGames());
                 currentGames?.map((g) => {
                     return(
 
-                        <div >
+                        <div className="grid">
                             <Link to={"/"+g.id}>
                               <Card name={g.name} image={g.image} genre={g.genres} key={g.id}/>
                               </Link>
