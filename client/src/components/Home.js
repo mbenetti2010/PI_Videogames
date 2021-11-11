@@ -23,7 +23,12 @@ export default function Home() {
     
     const paginado = (number) => {
         setCurrentPage(number);
+        setIndexOfLastGame(gamesPerPage*number);
+        setIndexOfFirstGame(indexOfLastGame-gamesPerPage);
+
         }
+
+        
 
     
     useEffect(() => {
@@ -42,9 +47,9 @@ dispatch(getAllGames());
     
     return (
         <div>
-            <h1>HENRY VIDEOGAMES APP</h1> 
-            <h2>TODOS LOS JUEGOS </h2>
-            <Link to="/NewVideogame">CREA TU PROPIO JUEGO</Link>
+            <h1 className="avenir">HENRY VIDEOGAMES APP</h1> 
+            <h2 className="avenir">TODOS LOS JUEGOS </h2>
+            <Link className="avenir" to="/NewVideogame">CREA TU PROPIO JUEGO</Link>
             <button onClick={e => {hadleOnClick(e)}}>Cargar Todos los juegos</button>         
                           
             <div>

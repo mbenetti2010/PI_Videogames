@@ -39,7 +39,7 @@ const getApiInfo = async() => {
             description: game.description,
             image: game.background_image,
             rating: game.rating,
-            platforms: game.platforms.map(platforms => platforms),
+            platforms: game.platforms.map(platforms => platforms.platform.name),
             genres: game.genres.map(genre => genre.name),
         }
     });
