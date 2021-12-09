@@ -5,6 +5,10 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LandingPage from './components/LandingPage'
 import Home from './components/Home';
 
+import GameCreate from './components/GameCreate';
+
+
+
 
 
 
@@ -20,6 +24,8 @@ function App() {
       <Routes>
         <Route exact path='/' element={<LandingPage/>}/>
         <Route path='/videogames' element={<Home/>}/>
+        
+        <Route path='/GameCreate' element={<GameCreate/>}/>
       </Routes>
 
     </div>
